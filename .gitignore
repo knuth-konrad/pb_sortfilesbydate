@@ -1,6 +1,5 @@
 # Test data
 DATA/
-DATA 1/
 
 # Docu
 zDOKU/
@@ -19,4 +18,3 @@ zDOKU/
 
 # Misc. (binary) files
 *.txt
-*.zip

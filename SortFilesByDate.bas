@@ -7,18 +7,21 @@
 '
 '   Author: Knuth Konrad 2017
 '   Source: -
-'  Changed: -
+'  Changed: 15.05.2017
+'           - #Break On to prevent console window property's menu issue
+'           - Application manifest added
 '------------------------------------------------------------------------------
 #Compile Exe ".\SortFilesByDate.exe"
 #Option Version5
 #Dim All
 
+#Break On
 #Debug Error Off
 #Tools Off
 
 %VERSION_MAJOR = 1
 %VERSION_MINOR = 0
-%VERSION_REVISION = 0
+%VERSION_REVISION = 1
 
 ' Version Resource information
 #Include ".\SortFilesByDateRes.inc"
@@ -572,7 +575,7 @@ Sub ShowHelp
    Con.StdOut ""
    Con.StdOut "SortFilesByDate"
    Con.StdOut "---------------"
-   Con.StdOut "SortFilesByDate searches files matching the passed file pattern in the source folder. It analyses the files' time stamp and sorts them"
+   Con.StdOut "SortFilesByDate searches files matching the passed file pattern in the source folder. It analyses the files' time stamps and sorts them"
    Con.StdOut "accordingly in the destination path by creating the necessary folder structure, with the passed destination path acting as the root folder."
    Con.StdOut ""
    Con.StdOut "Usage:   SortFilesByDate _"

@@ -1,4 +1,5 @@
 #Resource Icon, 1, ".\GFX\wegweiser.ico"
+#Resource Manifest, 1, "SortFilesByDate.exe.manifest"
 
 #Resource VersionInfo
 #Resource FileVersion %VERSION_MAJOR, %VERSION_MINOR, %VERSION_REVISION, 0
@@ -11,8 +12,8 @@
 #Resource Version$ "LegalCopyright",   "Copyright 2017 BasicAware"
 #Resource Version$ "OriginalFilename", "SortFileByDate.exe"
 #Resource Version$ "ProductName",      "SortFileByDate"
-#Resource Version$ "ProductVersion",   "1.0.0.0"
-#Resource Version$ "FileVersion",      "1.0.0.0"
+#Resource Version$ "ProductVersion",   "1.0.1.0"
+#Resource Version$ "FileVersion",      "1.0.1.0"
 #Resource Version$ "Comments",         "Written by Knuth Konrad"
 
 $COMPANY_NAME = "BasicAware"
