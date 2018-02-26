@@ -10,10 +10,13 @@
 '  Changed: 15.05.2017
 '           - #Break On to prevent console window property's menu issue
 '           - Application manifest added
+'           - Replace source code include with SLL
 '------------------------------------------------------------------------------
 #Compile Exe ".\SortFilesByDate.exe"
 #Option Version5
 #Dim All
+
+#Link "baCmdLine.sll"
 
 #Break On
 #Debug Error Off
@@ -61,7 +64,7 @@ End Union
 #Include Once "win32api.inc"
 #Include "ImageHlp.inc"
 #Include "sautilcc.inc"       ' General console helpers
-#Include ".\IbaCmdLine.inc"   ' Command line parameters parser
+'#Include ".\IbaCmdLine.inc"   ' Command line parameters parser
 '------------------------------------------------------------------------------
 '*** Variabels ***
 '------------------------------------------------------------------------------
