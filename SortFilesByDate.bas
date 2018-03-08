@@ -24,7 +24,7 @@
 
 %VERSION_MAJOR = 1
 %VERSION_MINOR = 0
-%VERSION_REVISION = 1
+%VERSION_REVISION = 2
 
 ' Version Resource information
 #Include ".\SortFilesByDateRes.inc"
@@ -64,7 +64,6 @@ End Union
 #Include Once "win32api.inc"
 #Include "ImageHlp.inc"
 #Include "sautilcc.inc"       ' General console helpers
-'#Include ".\IbaCmdLine.inc"   ' Command line parameters parser
 '------------------------------------------------------------------------------
 '*** Variabels ***
 '------------------------------------------------------------------------------
@@ -606,7 +605,7 @@ Sub ShowHelp
    Con.StdOut "/f or /filepattern        = file pattern"
    Con.StdOut "       If omitted, all files are scanned (equals /f=*.*)."
    Con.StdOut "/s or /subfolders         = recurse subfolders yes(1) or no (0)"
-   Con.StdOut "       If omitted, only the folder passed via /p is scanned for matching files (equals /s=0)."
+   Con.StdOut "       If omitted, only the folder passed via /sp is scanned for matching files (equals /s=0)."
    Con.StdOut ""
    Con.StdOut "You may specify more than one file pattern for the parameter /f by using ; (semicolon) as a separator, i.e."
    Con.StdOut "       /f=*.doc;*.rtf -> sorts all *.doc and all *.rtf files from the specified folder."
