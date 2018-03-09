@@ -11,6 +11,9 @@
 '           - #Break On to prevent console window property's menu issue
 '           - Application manifest added
 '           - Replace source code include with SLL
+'           09.03.2018
+'           - Put UNC path derived from mapped drive on its own line to prevent
+'           screen clutter
 '------------------------------------------------------------------------------
 #Compile Exe ".\SortFilesByDate.exe"
 #Option Version5
@@ -24,7 +27,7 @@
 
 %VERSION_MAJOR = 1
 %VERSION_MINOR = 0
-%VERSION_REVISION = 2
+%VERSION_REVISION = 3
 
 ' Version Resource information
 #Include ".\SortFilesByDateRes.inc"
@@ -93,7 +96,7 @@ Function PBMain () As Long
 
    ' Application intro
    ConHeadline "SortFilesByDate", %VERSION_MAJOR, %VERSION_MINOR, %VERSION_REVISION
-   ConCopyright "2017", $COMPANY_NAME
+   ConCopyright "2017-2018", $COMPANY_NAME
    Print ""
 
    Trace New ".\SortFilesByDate.tra"
@@ -208,21 +211,17 @@ Function PBMain () As Long
 
    sPathFull = sSourcePath
    sPathFull = FullPathAndUNC(sSourcePath)
-   Con.StdOut "Source folder     : " & sSourcePath;
+   Con.StdOut "Source folder     : " & sSourcePath
    ' If path is a relative path, display the full path also
-   If LCase$(NormalizePath(sSourcePath)) = LCase$(NormalizePath(sPathFull)) Then
-      Con.StdOut ""
-   Else
-      Con.StdOut " (" & sPathFull & ")"
+   If LCase$(NormalizePath(sSourcePath)) <> LCase$(NormalizePath(sPathFull)) Then
+      Con.StdOut "                    (" & sPathFull & ")"
    End If
    sPathFull = sDestPath
    sPathFull = FullPathAndUNC(sDestPath)
    Con.StdOut "Destination folder: " & sDestPath;
    ' If path is a relative path, display the full path also
-   If LCase$(NormalizePath(sDestPath)) = LCase$(NormalizePath(sPathFull)) Then
-      Con.StdOut ""
-   Else
-      Con.StdOut " (" & sPathFull & ")"
+   If LCase$(NormalizePath(sDestPath)) <> LCase$(NormalizePath(sPathFull)) Then
+      Con.StdOut "                    (" & sPathFull & ")"
    End If
 
    Con.StdOut "File pattern      : " & sFilePattern
