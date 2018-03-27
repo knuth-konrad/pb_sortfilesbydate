@@ -5,7 +5,7 @@
 	Sample application manifest file:
 -->
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0"> 
-  <assemblyIdentity version="1.0.3.0"
+  <assemblyIdentity version="1.0.4.0"
      processorArchitecture="X86"
      name="SortFileByDate"
      type="win32"/> 

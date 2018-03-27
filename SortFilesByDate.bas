@@ -27,7 +27,7 @@
 
 %VERSION_MAJOR = 1
 %VERSION_MINOR = 0
-%VERSION_REVISION = 3
+%VERSION_REVISION = 4
 
 ' Version Resource information
 #Include ".\SortFilesByDateRes.inc"
@@ -218,7 +218,7 @@ Function PBMain () As Long
    End If
    sPathFull = sDestPath
    sPathFull = FullPathAndUNC(sDestPath)
-   Con.StdOut "Destination folder: " & sDestPath;
+   Con.StdOut "Destination folder: " & sDestPath
    ' If path is a relative path, display the full path also
    If LCase$(NormalizePath(sDestPath)) <> LCase$(NormalizePath(sPathFull)) Then
       Con.StdOut "                    (" & sPathFull & ")"
@@ -612,97 +612,3 @@ Sub ShowHelp
 
 End Sub
 '---------------------------------------------------------------------------
-
-Function FullPathAndUNC(ByVal sPath As String) As String
-'------------------------------------------------------------------------------
-'Purpose  : Resolves/expands a path from a relative path to an absolute path
-'           and UNC path, if the drive is mapped
-'
-'Prereq.  : -
-'Parameter: -
-'Returns  : -
-'Note     : -
-'
-'   Author: Knuth Konrad 30.01.2017
-'   Source: -
-'  Changed: -
-'------------------------------------------------------------------------------
-
-   ' Determine if it's a relative or absolute path, i.e. .\MyFolder or C:\MyFolder
-   Local szPathFull As AsciiZ * %Max_Path, sPathFull As String, lResult As Long
-   sPathFull = sPath
-   lResult = GetFullPathName(ByCopy sPath, %Max_Path, szPathFull, ByVal 0)
-   If lResult <> 0 Then
-      sPathFull = Left$(szPathFull, lResult)
-   End If
-
-   ' Now that we've got that sorted, resolve the UNC path, if any
-   Local dwError As Dword
-   FullPathAndUNC = UNCPathFromDriveLetter(sPathFull, dwError, 0)
-
-End Function
-'------------------------------------------------------------------------------
-
-Function UNCPathFromDriveLetter(ByVal sPath As String, ByRef dwError As Dword, _
-   Optional ByVal lDriveOnly As Long) As String
-'------------------------------------------------------------------------------
-'Purpose  : Returns a fully qualified UNC path location from a (mapped network)
-'           drive letter/share
-'
-'Prereq.  : -
-'Parameter: sPath       - Path to resolve
-'           dwError     - ByRef(!), Returns the error code from the Win32 API, if any
-'           lDriveOnly  - If True, return only the drive letter
-'Returns  : -
-'Note     : -
-'
-'   Author: Knuth Konrad 17.07.2013
-'   Source: -
-'  Changed: -
-'------------------------------------------------------------------------------
-   ' 32-bit declarations:
-   Local sTemp As String
-   Local szDrive As AsciiZ * 3, szRemoteName As AsciiZ * 1024
-   Local lSize, lStatus As Long
-
-   ' The size used for the string buffer. Adjust this if you
-   ' need a larger buffer.
-   Local lBUFFER_SIZE As Long
-   lBUFFER_SIZE = 1024
-
-   If Len(sPath) > 2 Then
-      sTemp = Mid$(sPath, 3)
-      szDrive = Left$(sPath, 2)
-   Else
-      szDrive = sPath
-   End If
-
-   ' Return the UNC path (\\Server\Share).
-   lStatus = WNetGetConnectionA(szDrive, szRemoteName, lBUFFER_SIZE)
-
-   ' Verify that the WNetGetConnection() succeeded. WNetGetConnection()
-   ' returns 0 (NO_ERROR) if it successfully retrieves the UNC path.
-   If lStatus = %NO_ERROR Then
-
-      If IsTrue(lDriveOnly) Then
-
-         ' Display the UNC path.
-         UNCPathFromDriveLetter = Trim$(szRemoteName, Any $Nul & $WhiteSpace)
-
-      Else
-
-         UNCPathFromDriveLetter = Trim$(szRemoteName, Any $Nul & $WhiteSpace) & sTemp
-
-      End If
-
-   Else
-
-      ' Return the original filename/path unaltered
-      UNCPathFromDriveLetter = sPath
-
-   End If
-
-   dwError = lStatus
-
-End Function
-'------------------------------------------------------------------------------

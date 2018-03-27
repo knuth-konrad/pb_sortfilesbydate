@@ -12,8 +12,8 @@
 #Resource Version$ "LegalCopyright",   "Copyright 2017-2018 BasicAware"
 #Resource Version$ "OriginalFilename", "SortFileByDate.exe"
 #Resource Version$ "ProductName",      "SortFileByDate"
-#Resource Version$ "ProductVersion",   "1.0.3.0"
-#Resource Version$ "FileVersion",      "1.0.3.0"
+#Resource Version$ "ProductVersion",   "1.0.4.0"
+#Resource Version$ "FileVersion",      "1.0.4.0"
 #Resource Version$ "Comments",         "Written by Knuth Konrad"
 
 $COMPANY_NAME = "BasicAware"
