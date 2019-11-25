@@ -27,7 +27,7 @@
 
 %VERSION_MAJOR = 1
 %VERSION_MINOR = 0
-%VERSION_REVISION = 4
+%VERSION_REVISION = 5
 
 ' Version Resource information
 #Include ".\SortFilesByDateRes.inc"
@@ -46,7 +46,7 @@
    ' /ta or /timeattribute
    ' /v= or /verbose
 Type ParamsTYPE
-   SortOrder As String * 3
+   SortOrder As String * 6
    Subfolders As Byte
    Verbose As Byte
    TimeAttribute As Byte   ' 0 = LastWriteTime, 1 - CreationTime, 2 - LastAccessTime
@@ -83,7 +83,8 @@ Function PBMain () As Long
 '
 '   Author: Knuth Konrad
 '   Source: -
-'  Changed: -
+'  Changed: 25.11.2019
+'           - FIX: sort order parameter validation failed
 '------------------------------------------------------------------------------
    Local sSourcePath, sDestPath, sFilePattern, sCmd, sTemp As String
    Local i, j As Dword
@@ -96,7 +97,7 @@ Function PBMain () As Long
 
    ' Application intro
    ConHeadline "SortFilesByDate", %VERSION_MAJOR, %VERSION_MINOR, %VERSION_REVISION
-   ConCopyright "2017-2018", $COMPANY_NAME
+   ConCopyright "2017-2019", $COMPANY_NAME
    Print ""
 
    Trace New ".\SortFilesByDate.tra"
@@ -164,6 +165,8 @@ Function PBMain () As Long
    If IsTrue(o.HasParam("so", "sortorder")) Then
       sTemp = LCase$(Variant$(o.GetValueByName("so", "sortorder")))
       udtCfg.SortOrder = Trim$(Remove$(sTemp, $Dq))
+   Else
+      udtCfg.SortOrder = "ymd"
    End If
 
    ' ** Recurse subfolders
