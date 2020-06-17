@@ -14,6 +14,8 @@
 '           09.03.2018
 '           - Put UNC path derived from mapped drive on its own line to prevent
 '           screen clutter
+'           17.06.2020
+'           - Expand environment variables
 '------------------------------------------------------------------------------
 #Compile Exe ".\SortFilesByDate.exe"
 #Option Version5
@@ -27,7 +29,7 @@
 
 %VERSION_MAJOR = 1
 %VERSION_MINOR = 0
-%VERSION_REVISION = 5
+%VERSION_REVISION = 6
 
 ' Version Resource information
 #Include ".\SortFilesByDateRes.inc"
@@ -97,7 +99,7 @@ Function PBMain () As Long
 
    ' Application intro
    ConHeadline "SortFilesByDate", %VERSION_MAJOR, %VERSION_MINOR, %VERSION_REVISION
-   ConCopyright "2017-2019", $COMPANY_NAME
+   ConCopyright "2017-2020", $COMPANY_NAME
    Print ""
 
    Trace New ".\SortFilesByDate.tra"
@@ -149,11 +151,17 @@ Function PBMain () As Long
       sSourcePath = Trim$(Remove$(sTemp, $Dq))
    End If
 
+   ' Expand environment variables in path
+   sSourcePath = GetEnvironPath(sSourcePath)
+
    ' ** DestinationPath
    If IsTrue(o.HasParam("dp", "destinationpath")) Then
       sTemp = Variant$(o.GetValueByName("dp", "destinationpath"))
       sDestPath = Trim$(Remove$(sTemp, $Dq))
    End If
+
+   ' Expand environment variables in path
+   sDestPath = GetEnvironPath(sDestPath)
 
    ' ** File pattern
    If IsTrue(o.HasParam("f", "filepattern")) Then
